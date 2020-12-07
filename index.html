@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title>TABS</title>
         <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
         <script src="http://d3js.org/d3.v5.min.js"></script>
         <script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
@@ -11,18 +12,25 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body>
-        <div id="graph" style="text-align: center;"></div>
-        <button class="collapsible">INTRUCTIONS</button>
-        <p class="hidden">when mouse is on top of circuit, use scrollwheel to zoom in and out, you can also drag the display!</p>
-        <button id="newneuron">NEW NEURON</button>
-        <ul id="neuronlist"></ul>
-        <button id="render">RENDER</button>
+      <div class="d-flex align-items-start">
+        <div id="graph" class="border border-primary rounded w-50" style="text-align: center;"></div>
+          <div class="d-flex flex-column">
+          <div class="card w-75">
+            <div class="card-body">
+              <h5 class="card-title">Instructions</h5>
+              <p class="card-text">when mouse is on top of circuit, use scrollwheel to zoom in and out, you can also drag the display!</p>
+              <div class="d-flex align-items-start justify-content-around">
+                <div class="d-flex flex-column">
+                  <button id="newneuron" class="btn btn-primary">New Neuron</button>
+                  <ul id="neuronlist"></ul>
+                </div>
+                <button id="render" class="btn btn-primary">Render</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </body>
     <script src="index.js"></script>
     <script src="render.js"></script>
 </html>
-
-
-
-
-
