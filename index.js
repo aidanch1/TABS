@@ -13,6 +13,7 @@ $("#newneuron").click(function(){
     }
     neurons.push(neuron);
     let newListNode = document.createElement("li");
+    newListNode.style = "padding-top: 10px"
     let d = document.createElement("div");
     d.className = "hidden";
     d.id = "neuron";
@@ -21,9 +22,9 @@ $("#newneuron").click(function(){
     let stimulate = document.createElement("input");
     stimulate.type = "checkbox";
     d.appendChild(stimulate);
-    d.appendChild(document.createElement("br"));    
+    d.appendChild(document.createElement("br"));
     let update = document.createElement("button");
-    update.innerText = "UPDATE CONNECTIONS";
+    update.innerText = "Update Connections";
     update.onclick = function(){
         let fields = d.childNodes;
         console.log(fields);
@@ -34,6 +35,7 @@ $("#newneuron").click(function(){
         neurons[neuron.name].stimulated = stimulate.checked;
         $(this).parent().slideToggle(500);
     };
+    update.className = "btn btn-primary btn-sm";
     d.appendChild(update);
     let b = document.createElement("button");
     b.innerHTML = "Neuron " + neuron.name;
@@ -41,6 +43,7 @@ $("#newneuron").click(function(){
         var nextItem = $(this).next();
         nextItem.slideToggle(500);
     };
+    b.className = "btn btn-primary btn-sm";
     newListNode.appendChild(b);
     newListNode.appendChild(d);
     document.getElementById("neuronlist").appendChild(newListNode);

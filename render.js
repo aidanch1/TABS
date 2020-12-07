@@ -14,8 +14,8 @@ graphviz.transition(function () {
 function attributer(datum, index, nodes) {
     var selection = d3.select(this);
     if (datum.tag == "svg") {
-        var width = "600";
-        var height = "400";
+        var width = document.getElementById("graph").offsetWidth;
+        var height = document.getElementById("graph").offsetHeight;
         var x = "10";
         var y = "10";
         selection

@@ -12,19 +12,19 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body>
-      <div class="d-flex align-items-start">
+      <div class="d-flex align-items-stretch justify-content-center" style="padding: 15px; height: 500px">
         <div id="graph" class="border border-primary rounded w-50" style="text-align: center;"></div>
-          <div class="d-flex flex-column">
-          <div class="card w-75">
+          <div class="d-flex flex-column" style="padding-left: 15px;">
+          <div class="card w-100">
             <div class="card-body">
               <h5 class="card-title">Instructions</h5>
               <p class="card-text">when mouse is on top of circuit, use scrollwheel to zoom in and out, you can also drag the display!</p>
-              <div class="d-flex align-items-start justify-content-around">
+              <div class="d-flex align-items-start justify-content-start">
                 <div class="d-flex flex-column">
                   <button id="newneuron" class="btn btn-primary">New Neuron</button>
                   <ul id="neuronlist"></ul>
                 </div>
-                <button id="render" class="btn btn-primary">Render</button>
+                <button id="render" class="btn btn-primary btn-lg">Render</button>
               </div>
             </div>
           </div>

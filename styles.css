@@ -6,6 +6,12 @@
     background-color: lightgray;
 } */
 
+#render{
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+}
+
 #neuron {
     width: 400px;
 }
