@@ -35,7 +35,7 @@ $("#newneuron").click(function(){
         neurons[neuron.name].stimulated = stimulate.checked;
         $(this).parent().slideToggle(500);
     };
-    update.className = "btn btn-primary btn-sm";
+    update.className = "btn btn-info btn-sm";
     d.appendChild(update);
     let b = document.createElement("button");
     b.innerHTML = "Neuron " + neuron.name;
@@ -43,7 +43,7 @@ $("#newneuron").click(function(){
         var nextItem = $(this).next();
         nextItem.slideToggle(500);
     };
-    b.className = "btn btn-primary btn-sm";
+    b.className = "btn btn-info btn-sm";
     newListNode.appendChild(b);
     newListNode.appendChild(d);
     document.getElementById("neuronlist").appendChild(newListNode);

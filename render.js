@@ -1,5 +1,7 @@
 const inh = -1;
 const exc = 1;
+const wide = document.getElementById("graph").offsetWidth;
+const high = document.getElementById("graph").offsetHeight - 2;
 
 var graphviz = d3.select("#graph").graphviz();
 
@@ -14,16 +16,16 @@ graphviz.transition(function () {
 function attributer(datum, index, nodes) {
     var selection = d3.select(this);
     if (datum.tag == "svg") {
-        var width = document.getElementById("graph").offsetWidth;
-        var height = document.getElementById("graph").offsetHeight;
+        var width = wide;
+        var height = high;
         var x = "10";
         var y = "10";
         selection
-            .attr("width", width + "pt")
-            .attr("height", height + "pt")
+            .attr("width", width + "px")
+            .attr("height", height + "px")
             .attr("viewBox", -x + " " + -y + " " + width + " " + height);
-        datum.attributes.width = width + "pt";
-        datum.attributes.height = height + "pt";
+        datum.attributes.width = width + "px";
+        datum.attributes.height = height + "px";
         datum.attributes.viewBox = -x + " " + -y + " " + width + " " + height;
     }
 }
