@@ -1,0 +1,11 @@
+.hidden{
+    display: none;
+}
+
+div {
+    background-color: lightgray;
+}
+
+#neuron {
+    width: 400px;
+}
