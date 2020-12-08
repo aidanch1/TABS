@@ -2,7 +2,7 @@ d3.select("#graph").graphviz().renderDot('digraph  {a -> b}');
 
 var neurons = [];
 
-const display = 'Editing Neuron: <span class="neuronname"></span><br> Excitatory connections: <br><input type="text"><br>Inhibitory connections: <br><input type="text"><br>Stimulate neuron?';
+const display = 'Editing Neuron: <span class="neuronname"></span><br> Excitatory connections: <br><input type="text"><br>Inhibitory connections: <br><input type="text"><br>Stimulate neuron? ';
 
 $("#newneuron").click(function(){
     var neuron = {
