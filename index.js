@@ -1,5 +1,4 @@
-d3.select("#graph").graphviz().renderDot('digraph  {a -> b}');
-
+d3.select("#graph").graphviz().renderDot('digraph  {0 -> 1}');
 var neurons = [];
 
 const display = 'Editing Neuron: <span class="neuronname"></span><br> Excitatory connections: <br><input type="text"><br>Inhibitory connections: <br><input type="text"><br>Stimulate neuron? ';
