@@ -44,6 +44,7 @@ function prepareRender(digraph){
 
 function renderSteps() {
   const list = document.querySelector('#stepsList');
+  list.innerHTML = '';
   for(var i = 0; i < wordArray.length; i++) {
     let li = document.createElement('li');
     li.textContent = wordArray[i];
