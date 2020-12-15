@@ -32,11 +32,24 @@ function attributer(datum, index, nodes) {
 
 var dots = [];
 var dotIndex = 0;
+var wordArray = [];
 
 function prepareRender(digraph){
     dots = [];
     dotIndex = 0;
+    wordArray = [];
     establishDots(digraph);
+    renderSteps();
+}
+
+function renderSteps() {
+  const list = document.querySelector('#stepsList');
+  for(var i = 0; i < wordArray.length; i++) {
+    let li = document.createElement('li');
+    li.textContent = wordArray[i];
+    li.id = "step"+i;
+    list.appendChild(li);
+  }
 }
 
 function render() {
@@ -53,6 +66,15 @@ function render() {
                 render();
             }
         });
+    var current = document.querySelector('#step' + (dotIndex % dots.length));
+    current.style.backgroundColor = "yellow";
+    if((dotIndex % dots.length) > 0) {
+      var previous = document.querySelector('#step' + ((dotIndex % dots.length) - 1));
+      previous.style.backgroundColor = "white";
+    } else {
+      var previous = document.querySelector('#step' + (dots.length - 1));
+      previous.style.backgroundColor = "white";
+    }
     dotIndex += 1;
 }
 
@@ -70,6 +92,7 @@ function digraphToArray(digraph) {
     arr[i] = []
     for(var j = 0; j < nodes; j++){
       if(i == j && digraph[i + 2].includes("yellow")) {
+        wordArray.push(i + " recieves an action potential giving it a burst of stimulation")
         arr[i][i] = 1;
       } else {
         arr[i][j] = 0;
@@ -125,6 +148,7 @@ function arrayToDigraph(array) {
 }
 
 function stepThrough(array) {
+  var currentStep = "";
   arrayNext = [];
   for(var i = 0; i < array.length; i++){
     arrayNext[i] = []
@@ -136,18 +160,26 @@ function stepThrough(array) {
     var value = 0;
     for(var j = 0; j < array[i].length; j++) {
       if (i != j) {
-        if((array[j][i] == exc && array[j][j] == 1)
-        ||(array[j][i] == inh && array[j][j] == 0)) {
+        if(array[j][i] == exc && array[j][j] == 1) {
           value = 1;
-        } else if((array[j][i] == exc && array[j][j] == 0)
-        ||(array[j][i] == inh && array[j][j] == 1)) {
+          currentStep += j + " excites " + i + "; ";
+        } else if (array[j][i] == inh && array[j][j] == 0) {
+          value = 1;
+          currentStep += i + " randomly stimulates as it isn't being inhibited; "
+        } else if(array[j][i] == inh && array[j][j] == 1) {
           value = -1;
+          currentStep += j + " inhibits " + i + " from being stimulating; ";
+          break;
+        } else if(array[j][i] == exc && array[j][j] == 0) {
+          value = -1;
+          currentStep += i + " doesn't get stimulated because " + j + " isn't stimulated; ";
           break;
         }
       }
     }
     arrayNext[i][i] = value > 0 && array[i][i] != 1? 1 : 0;
   }
+  wordArray.push(currentStep.substring(0, currentStep.length - 2));
   return arrayNext;
 }
 

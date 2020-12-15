@@ -13,7 +13,12 @@
     </head>
     <body>
       <div class="d-flex align-items-stretch justify-content-center" style="padding: 15px; height: 500px">
-        <div id="graph" class="border border-primary rounded w-50" style="text-align: center;"></div>
+        <div class="d-flex flex-column w-50">
+          <div id="graph" class="border border-primary rounded w-100 h-100" style="text-align: center;"></div>
+          <div style = "padding-top: 10px;">
+            <ul type = "circle" id = "stepsList"></ul>
+          </div>
+        </div>
         <div class="d-flex flex-column" style="width: 500px; padding-left: 15px;">
           <div class="card w-100">
             <div class="card-body">
