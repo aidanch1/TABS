@@ -2,16 +2,24 @@ const inh = -1;
 const exc = 1;
 const wide = document.getElementById("graph").offsetWidth;
 const high = document.getElementById("graph").offsetHeight - 2;
+const duration = 1000; 
 
 var graphviz = d3.select("#graph").graphviz();
 
-graphviz.transition(function () {
+graphviz.transition(function (){
+  return d3.transition()
+  .ease(d3.easeLinear)
+  .duration(duration);
+}).logEvents(false);
+
+$("#simSpeed").on('input', function(){
+  let m = duration * $(this).val();
+  graphviz.transition(function(){
     return d3.transition()
-        .ease(d3.easeLinear)
-        .delay(500)
-        .duration(1000);
+    .ease(d3.easeLinear)
+    .duration(m);
+  }).logEvents(false);
 })
-.logEvents(false)
 
 function attributer(datum, index, nodes) {
     var selection = d3.select(this);
