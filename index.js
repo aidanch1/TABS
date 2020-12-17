@@ -11,6 +11,12 @@ $("#newneuron").click(function(){
         inhibitory: []
     }
     neurons.push(neuron);
+    addNeuronToEditor(neuron);
+});
+
+//5, 9, 12
+
+function addNeuronToEditor(neuron){
     let newListNode = document.createElement("li");
     newListNode.style = "padding-top: 10px"
     let d = document.createElement("div");
@@ -22,10 +28,13 @@ $("#newneuron").click(function(){
     stimulate.type = "checkbox";
     d.appendChild(stimulate);
     d.appendChild(document.createElement("br"));
+    var fields = d.childNodes;
+    fields[5].value = neuron.excitatory.toString();
+    fields[9].value = neuron.inhibitory.toString();
+    fields[12].checked = neuron.stimulated;
     let update = document.createElement("button");
     update.innerText = "Update Connections";
     update.onclick = function(){
-        let fields = d.childNodes;
         let legal = true;
 
         let einput = fields[5].value;
@@ -112,7 +121,7 @@ $("#newneuron").click(function(){
     newListNode.appendChild(b);
     newListNode.appendChild(d);
     document.getElementById("neuronlist").appendChild(newListNode);
-});
+}
 
 $("#render").click(function(){
     prepareRender(getGraph());
@@ -151,15 +160,35 @@ function helper(presynaptic, connections, color){
     return result;
 }
 
+const verifyCode = "bananabread";
+
 $("#loadCircuit").click(function(){
-    var t = JSON.parse($("#toLoad").val());
+    var t = $("#toLoad").val();
+    var index = t.indexOf(verifyCode);
     //check if t is a valid circuit
-    //if so, set neurons = t and change the list under neuron editor to reflect t
+    if (index !== -1){
+        //set neurons = t
+        let n = t.substring(0, index);
+        neurons = JSON.parse(n);
+        //change the neuron editor
+        var editor = document.getElementById("neuronlist");
+        editor.innerHTML = '';
+        editor.id = 'neuronlist';
+        neurons.forEach(function(neuron){
+            addNeuronToEditor(neuron);
+        });
+    }
+    else {
+        $("#modalMsg").modal("toggle");
+        setModalText("Error!", "The circuit is invalid!");
+    }
+    $("#toLoad").val('');
 })
 
 $("#save").click(function(){
     $("#modalMsg").modal("toggle");
-    setModalText("Copy this!", JSON.stringify(neurons));
+    let send = JSON.stringify(neurons) + verifyCode;
+    setModalText("Copy this!", send);
 })
 
 $("#closeModal").click(function(){
