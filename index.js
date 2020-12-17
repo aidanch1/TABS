@@ -185,6 +185,29 @@ $("#loadCircuit").click(function(){
     $("#toLoad").val('');
 })
 
+var preload = ['[{"name":0,"stimulated":true,"excitatory":[1],"inhibitory":[]},{"name":1,"stimulated":false,"excitatory":[2],"inhibitory":[]},{"name":2,"stimulated":false,"excitatory":[],"inhibitory":[]}]',
+'[{"name":0,"stimulated":true,"excitatory":[1,2],"inhibitory":[]},{"name":1,"stimulated":false,"excitatory":[3],"inhibitory":[]},{"name":2,"stimulated":false,"excitatory":[],"inhibitory":[3]},{"name":3,"stimulated":false,"excitatory":[],"inhibitory":[]}]',
+'[{"name":0,"stimulated":true,"excitatory":[4],"inhibitory":[]},{"name":1,"stimulated":true,"excitatory":[4],"inhibitory":[]},{"name":2,"stimulated":true,"excitatory":[5],"inhibitory":[]},{"name":3,"stimulated":true,"excitatory":[5],"inhibitory":[]},{"name":4,"stimulated":false,"excitatory":[6],"inhibitory":[]},{"name":5,"stimulated":false,"excitatory":[6],"inhibitory":[]},{"name":6,"stimulated":false,"excitatory":[],"inhibitory":[]}]'
+]
+for (var i=0; i<preload.length; i++){
+    let l = document.createElement("li");
+    let b = document.createElement("button");
+    b.innerText = "Example " + (i+1);
+    b.className = "btn btn-primary btn-sm";
+    b.value = i;
+    b.onclick = function(){
+        neurons = JSON.parse(preload[$(this).val()]);
+        var editor = document.getElementById("neuronlist");
+        editor.innerHTML = '';
+        editor.id = 'neuronlist';
+        neurons.forEach(function(neuron){
+            addNeuronToEditor(neuron);
+        });
+    }
+    l.appendChild(b);
+    document.getElementById("preloadlist").appendChild(l);
+}
+
 $("#save").click(function(){
     $("#modalMsg").modal("toggle");
     let send = JSON.stringify(neurons) + verifyCode;
