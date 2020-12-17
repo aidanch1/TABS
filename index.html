@@ -56,9 +56,18 @@
                 <li>You can make the graph bigger by using scrollwheel while over it and move it by dragging it</li>
                 <li>Deleting a neuron causes it and all connections that lead to it to be deleted. Neurons after the deleted neuron are renamed, but NOT changed.</li>
               </ol>
-              <h5 class="card-title">Load circuit</h5>
-              <input type="text" placeholder="paste text here" id="toLoad">
-              <button class="btn btn-primary btn-sm" id="loadCircuit">Load!</button>
+              <div class="row">
+                <div class="col-xs-6">
+                  <h5 class="card-title">Load circuit</h5>
+                  <input type="text" placeholder="paste text here" id="toLoad">
+                  <button class="btn btn-primary btn-sm" id="loadCircuit">Load!</button>
+                </div>
+                <div class="col">
+                  <h5 class="card-title">Preloadable options</h5>
+                  <ul id="preloadlist"></ul>
+                  <p>Click render after loading an example to see it simulate!</p>
+                </div>
+              </div>
               <h5 class="card-title">Neuron Editor:</h5>
               <div class="d-flex align-items-start justify-content-start">
                 <div class="d-flex flex-column">
