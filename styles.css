@@ -6,11 +6,11 @@
     background-color: lightgray;
 } */
 
-#render{
+/*#render{
   position: fixed;
   left: 25px;
   bottom: 25px;
-}
+}*/
 
 #neuron {
     width: 400px;

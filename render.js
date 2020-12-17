@@ -42,8 +42,8 @@ function prepareRender(digraph){
     renderSteps();
 }
 
+const list = document.querySelector('#stepsList');
 function renderSteps() {
-  const list = document.querySelector('#stepsList');
   list.innerHTML = '';
   for(var i = 0; i < wordArray.length; i++) {
     let li = document.createElement('li');
@@ -67,16 +67,18 @@ function render() {
                 render();
             }
         });
-    var current = document.querySelector('#step' + (dotIndex % dots.length));
-    current.style.backgroundColor = "yellow";
-    if((dotIndex % dots.length) > 0) {
-      var previous = document.querySelector('#step' + ((dotIndex % dots.length) - 1));
-      previous.style.backgroundColor = "white";
-    } else {
-      var previous = document.querySelector('#step' + (dots.length - 1));
-      previous.style.backgroundColor = "white";
+    if (list.childNodes.length > 0){
+      var current = document.querySelector('#step' + (dotIndex % dots.length));
+      current.style.backgroundColor = "yellow";
+      if((dotIndex % dots.length) > 0) {
+        var previous = document.querySelector('#step' + ((dotIndex % dots.length) - 1));
+        previous.style.backgroundColor = "white";
+      } else {
+        var previous = document.querySelector('#step' + (dots.length - 1));
+        previous.style.backgroundColor = "white";
+      }
+      dotIndex += 1;
     }
-    dotIndex += 1;
 }
 
 function digraphToArray(digraph) {

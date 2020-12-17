@@ -55,8 +55,8 @@ $("#newneuron").click(function(){
             $(this).parent().slideToggle(500);
         }
         else {
-            //make modal if possible
-            alert('Neurons cannot connect to themselves or unexisting neurons');
+            $("#modalMsg").modal("toggle");
+            setModalText("Error!", "Neurons cannot connect to themselves or non-existent neurons!");
         }
     };
     update.className = "btn btn-info btn-sm";
@@ -149,6 +149,26 @@ function helper(presynaptic, connections, color){
         result.push(presynaptic + "->" + connections[i] + " " + color + ";");
     }
     return result;
+}
+
+$("#loadCircuit").click(function(){
+    var t = JSON.parse($("#toLoad").val());
+    //check if t is a valid circuit
+    //if so, set neurons = t and change the list under neuron editor to reflect t
+})
+
+$("#save").click(function(){
+    $("#modalMsg").modal("toggle");
+    setModalText("Copy this!", JSON.stringify(neurons));
+})
+
+$("#closeModal").click(function(){
+    $("#modalMsg").modal("toggle");
+})
+
+function setModalText(header, body){
+    $("#modalTitle").text(header);
+    $("#modalText").text(body);
 }
 
 $(".collapsible").click(function(){
