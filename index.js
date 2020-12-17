@@ -29,12 +29,9 @@ $("#newneuron").click(function(){
         let legal = true;
 
         let einput = fields[5].value;
-        if (einput.length == 0){
-            neurons[neuron.name].excitatory = [];
-        }
-        else {
-            let arr = einput.split(",").map(Number);
-            arr.forEach(function (connection){
+        let earr = einput.split(",").map(Number);
+        if (einput.length != 0){
+            earr.forEach(function (connection){
                 //prevent connections to unexisting neurons or to itself
                 if (connection == neuron.name || connection >= neurons.length){
                     legal = false;                    
@@ -42,12 +39,9 @@ $("#newneuron").click(function(){
             });
         }
         let iinput = fields[9].value;
-        if (iinput.length == 0){
-            neurons[neuron.name].inhibitory = [];
-        }
-        else {
-            let arr = iinput.split(",").map(Number);
-            arr.forEach(function (connection){
+        let iarr = iinput.split(",").map(Number);
+        if (iinput.length != 0){
+            iarr.forEach(function (connection){
                 //prevent connections to unexisting neurons or to itself
                 if (connection == neuron.name || connection >= neurons.length){
                     legal = false;                    
@@ -55,8 +49,8 @@ $("#newneuron").click(function(){
             });
         }
         if (legal){
-            neurons[neuron.name].excitatory = einput.split(",").map(Number);
-            neurons[neuron.name].inhibitory = iinput.split(",").map(Number);
+            neurons[neuron.name].excitatory = einput.length == 0 ? [] : earr;
+            neurons[neuron.name].inhibitory = iinput.length == 0 ? [] : iarr;
             neurons[neuron.name].stimulated = stimulate.checked;
             $(this).parent().slideToggle(500);
         }
