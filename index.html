@@ -30,8 +30,9 @@
       <div class="d-flex align-items-stretch justify-content-center" style="padding: 15px; height: 500px">
         <div class="d-flex flex-column w-50">
           <div id="graph" class="border border-primary rounded w-100 h-100" style="text-align: center;"></div>
-          <div style = "padding-top: 10px;">
-            <ul type = "circle" id = "stepsList"></ul>
+          <div style = "padding-top: 10px;" class="d-flex flex-row">
+            <ul type = "circle" id = "stepsList" class="w-75"></ul>
+            <ul id="actionPotentialList" class="w-25"></ul>
           </div>
           <button id="render" class="btn btn-success btn-lg">▶️ Render</button>
           <label>Simulation Speed

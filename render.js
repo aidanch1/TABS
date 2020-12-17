@@ -2,7 +2,7 @@ const inh = -1;
 const exc = 1;
 const wide = document.getElementById("graph").offsetWidth;
 const high = document.getElementById("graph").offsetHeight - 2;
-const duration = 1000; 
+const duration = 1000;
 
 var graphviz = d3.select("#graph").graphviz();
 
@@ -41,6 +41,7 @@ function attributer(datum, index, nodes) {
 var dots = [];
 var dotIndex = 0;
 var wordArray = [];
+var litArray = [];
 
 function prepareRender(digraph){
     dots = [];
@@ -50,8 +51,8 @@ function prepareRender(digraph){
     renderSteps();
 }
 
-const list = document.querySelector('#stepsList');
 function renderSteps() {
+  var list = document.querySelector('#stepsList');
   list.innerHTML = '';
   for(var i = 0; i < wordArray.length; i++) {
     let li = document.createElement('li');
@@ -61,7 +62,21 @@ function renderSteps() {
   }
 }
 
+function prepActionPotential(nodes) {
+  var list = document.querySelector('#actionPotentialList');
+  list.innerHTML = '';
+  for(var i = 0; i < nodes; i++) {
+    let li = document.createElement('li');
+    li.textContent = "Node " + i;
+    li.id = "node"+i;
+    list.appendChild(li);
+  }
+}
+
 function render() {
+    var stepsList = document.querySelector('#stepsList');
+    var actionPotentialList = document.querySelector('#actionPotentialList');
+
     var dotLines = dots[dotIndex % dots.length];
     var dot = dotLines.join('');
     graphviz
@@ -75,7 +90,7 @@ function render() {
                 render();
             }
         });
-    if (list.childNodes.length > 0){
+    if (stepsList.childNodes.length > 0){
       var current = document.querySelector('#step' + (dotIndex % dots.length));
       current.style.backgroundColor = "yellow";
       if((dotIndex % dots.length) > 0) {
@@ -87,6 +102,20 @@ function render() {
       }
       dotIndex += 1;
     }
+    // TODO: fix this
+    // if (actionPotentialList.childNodes.length > 0 && (dotIndex % dots.length) < litArray.length) {
+    //   console.log(dotIndex % dots.length);
+    //   for(var i = 0; i < litArray[dotIndex % dots.length].length; i++) {
+    //     var previous = document.querySelector('#node' + i);
+    //     previous.style.backgroundColor = "white";
+    //   }
+    //   for(var i = 0; i < litArray[dotIndex % dots.length].length; i++) {
+    //     if(litArray[dotIndex % dots.length][i] == 1) {
+    //       var current = document.querySelector('#node' + i);
+    //       current.style.backgroundColor = "yellow";
+    //     }
+    //   }
+    // }
 }
 
 function digraphToArray(digraph) {
@@ -98,6 +127,7 @@ function digraphToArray(digraph) {
       nodes++;
     }
   }
+  prepActionPotential(nodes);
   //initialize array
   for(var i = 0; i < nodes; i++){
     arr[i] = []
@@ -160,9 +190,12 @@ function arrayToDigraph(array) {
 
 function stepThrough(array) {
   var currentStep = "";
+  litArray[litArray.length] = [];
+
   arrayNext = [];
   for(var i = 0; i < array.length; i++){
     arrayNext[i] = []
+    litArray[litArray.length - 1][i] = 0;
     for(var j = 0; j < array[i].length; j++){
       arrayNext[i][j] = array[i][j];
     }
@@ -172,9 +205,11 @@ function stepThrough(array) {
     for(var j = 0; j < array[i].length; j++) {
       if (i != j) {
         if(array[j][i] == exc && array[j][j] == 1) {
+          litArray[litArray.length - 1][i] = 1;
           value = 1;
           currentStep += j + " excites " + i + "; ";
         } else if (array[j][i] == inh && array[j][j] == 0) {
+          litArray[litArray.length - 1][i] = 1;
           value = 1;
           currentStep += i + " excites as it isn't being inhibited; "
         } else if(array[j][i] == inh && array[j][j] == 1) {
@@ -213,5 +248,6 @@ function establishDots(digraph){
         dots.push(arrayToDigraph(inputNetwork));
         generationCount++;
     }
+    console.log(litArray);
     console.log("the end");
 }
