@@ -93,7 +93,7 @@ function digraphToArray(digraph) {
     arr[i] = []
     for(var j = 0; j < nodes; j++){
       if(i == j && digraph[i + 2].includes("yellow")) {
-        wordArray.push(i + " recieves an action potential giving it a burst of stimulation")
+        wordArray.push(i + " excites")
         arr[i][i] = 1;
       } else {
         arr[i][j] = 0;
@@ -166,10 +166,10 @@ function stepThrough(array) {
           currentStep += j + " excites " + i + "; ";
         } else if (array[j][i] == inh && array[j][j] == 0) {
           value = 1;
-          currentStep += i + " randomly stimulates as it isn't being inhibited; "
+          currentStep += i + " excites as it isn't being inhibited; "
         } else if(array[j][i] == inh && array[j][j] == 1) {
           value = -1;
-          currentStep += j + " inhibits " + i + " from being stimulating; ";
+          currentStep += j + " inhibits " + i + " from exciting; ";
           break;
         } else if(array[j][i] == exc && array[j][j] == 0) {
           value = -1;
