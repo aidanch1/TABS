@@ -67,7 +67,7 @@ function prepActionPotential(nodes) {
   list.innerHTML = '';
   for(var i = 0; i < nodes; i++) {
     let li = document.createElement('li');
-    li.textContent = "Node " + i;
+    li.textContent = "Neuron " + i;
     li.id = "node"+i;
     list.appendChild(li);
   }
@@ -90,6 +90,25 @@ function render() {
                 render();
             }
         });
+
+      if (actionPotentialList.childNodes.length > 0 && (dotIndex % dots.length) < litArray.length) {
+        for(var i = 0; i < litArray[dotIndex % dots.length].length; i++) {
+          var previous = actionPotentialList.childNodes[i];
+          if(previous.childNodes.length > 1) {
+            previous.removeChild(previous.lastElementChild);
+          }
+        }
+        for(var i = 0; i < litArray[dotIndex % dots.length].length; i++) {
+          if(litArray[dotIndex % dots.length][i] == 1) {
+            var current = actionPotentialList.childNodes[i];
+            var picture = document.createElement("img");
+            picture.style = "width: 35px; height: 35px";
+            picture.setAttribute("src", "./actionPotential.png");
+            current.appendChild(picture);
+          }
+        }
+      }
+
     if (stepsList.childNodes.length > 0){
       var current = document.querySelector('#step' + (dotIndex % dots.length));
       current.style.backgroundColor = "yellow";
@@ -100,22 +119,8 @@ function render() {
         var previous = document.querySelector('#step' + (dots.length - 1));
         previous.style.backgroundColor = "white";
       }
-      dotIndex += 1;
     }
-    // TODO: fix this
-    // if (actionPotentialList.childNodes.length > 0 && (dotIndex % dots.length) < litArray.length) {
-    //   console.log(dotIndex % dots.length);
-    //   for(var i = 0; i < litArray[dotIndex % dots.length].length; i++) {
-    //     var previous = document.querySelector('#node' + i);
-    //     previous.style.backgroundColor = "white";
-    //   }
-    //   for(var i = 0; i < litArray[dotIndex % dots.length].length; i++) {
-    //     if(litArray[dotIndex % dots.length][i] == 1) {
-    //       var current = document.querySelector('#node' + i);
-    //       current.style.backgroundColor = "yellow";
-    //     }
-    //   }
-    // }
+    dotIndex += 1;
 }
 
 function digraphToArray(digraph) {
@@ -128,12 +133,15 @@ function digraphToArray(digraph) {
     }
   }
   prepActionPotential(nodes);
-  //initialize array
+  //initialize arrays
+  litArray[litArray.length] = [];
   for(var i = 0; i < nodes; i++){
     arr[i] = []
+    litArray[litArray.length - 1][i] = 0;
     for(var j = 0; j < nodes; j++){
       if(i == j && digraph[i + 2].includes("yellow")) {
         wordArray.push(i + " excites")
+        litArray[litArray.length - 1][i] = 1;
         arr[i][i] = 1;
       } else {
         arr[i][j] = 0;
