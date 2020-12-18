@@ -97,13 +97,24 @@ function render() {
           if(previous.childNodes.length > 1) {
             previous.removeChild(previous.lastElementChild);
           }
+          var picture = document.createElement("img");
+          picture.style = "width: 35px; height: 35px";
+          picture.setAttribute("src", "./noPotential.svg");
+          previous.appendChild(picture);
         }
         for(var i = 0; i < litArray[dotIndex % dots.length].length; i++) {
-          if(litArray[dotIndex % dots.length][i] == 1) {
+          if(litArray[dotIndex % dots.length][i] > 0) {
             var current = actionPotentialList.childNodes[i];
+            if(current.childNodes.length > 1) {
+              current.removeChild(current.lastElementChild);
+            }
             var picture = document.createElement("img");
             picture.style = "width: 35px; height: 35px";
-            picture.setAttribute("src", "./actionPotential.png");
+            if(litArray[dotIndex % dots.length][i] == 1) {
+              picture.setAttribute("src", "./actionPotential.png");
+            } else if(litArray[dotIndex % dots.length][i] == 2) {
+              picture.setAttribute("src", "./actionStart.svg");
+            }
             current.appendChild(picture);
           }
         }
@@ -141,7 +152,7 @@ function digraphToArray(digraph) {
     for(var j = 0; j < nodes; j++){
       if(i == j && digraph[i + 2].includes("yellow")) {
         wordArray.push(i + " excites")
-        litArray[litArray.length - 1][i] = 1;
+        litArray[litArray.length - 1][i] = 2;
         arr[i][i] = 1;
       } else {
         arr[i][j] = 0;
